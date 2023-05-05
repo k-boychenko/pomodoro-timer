@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Pridi:wght@300&display=swap');
+
+:root {
+  --clr-primary-100 : #ED7161;
+  --clr-primary-300 : #FBC4B3;
+  
+  --clr-short-break-100 : #397097;
+  --clr-short-break-300 : #478aba;
+
+  --clr-long-break-100 : #41cc93;
+  --clr-long-break-300 : #6ff5bf;
+
+  --clr-accent-100 : #D13834;
+  --clr-accent-300 : #971A1A;
+
+  --clr-short-break-accent-100 : #24398E;
+  --clr-short-break-accent-300 : #1B2671;
+
+  --clr-long-break-accent-100 : #14754d;
+  --clr-long-break-accent-300 : #279c6c;
+
+  --font-main: 'Pridi';
+  --font-clr-primary : #FFFFFF;
+  --font-clr-txt-active : #971A1A;
+
+  --txtbx-clr-bg : #ffffff;
+
+  --icon-size: 30px;
+
+  --btn-size-height-timer: 70px;
+  --btn-size-width-timer: 100px;
+}
+
+body {
+  color: var(--font-clr-primary);
+
+  font-family: var(--font-main);
+}
+
+header {
+  /* background-color: var(--clr-primary-100); */
+  font-size: 23px;
+}
+
+.container {
+  margin-inline: auto;
+  padding: 1rem 2rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.align-inline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logolink {
+  display: inline-flex;
+
+  max-width: 50%;
+  text-decoration: none;
+  color: var(--font-clr-primary);
+}
+
+.logolink img {
+  width: var(--icon-size);
+  height: var(--icon-size);
+
+  padding : 0 0.25rem;
+}
+
+.logolink div {
+  padding: 0.25rem 0;
+}
+
+.right-side {
+  float: right;
+}
+
+nav img {
+  width: var(--icon-size);
+  height: var(--icon-size);
+
+  padding: 0 0.5rem;
+}
+
+nav img,
+.task-check,
+.counter-arrow-up,
+.counter-arrow-down {
+  cursor: pointer;
+}
+
+/* timer css */
+.timer-title {
+  font-size: 25px;
+
+  padding: 0.25rem 0;
+}
+
+.pomodoro-timer {
+  border-radius: 50%;
+
+  padding: 0.25rem 0;
+}
+
+.pomodoro-svg {
+  max-width: 100%;
+  /* vertical-align: middle; */
+  overflow: visible;
+  /* display: block;
+  margin: auto; */
+  transform: rotate(-90deg);
+}
+.svg-indicator {
+  width: 200px;
+  height: 200px;
+}
+
+.time-down {
+  position: relative;
+}
+/* .pomodoro-timer.outer {
+  border: var(--clr-accent-100) solid 5px;
+
+  width: 200px;
+  height: 200px; 
+}
+
+.pomodoro-timer.inner {
+  background-color: var(--clr-primary-300);
+  
+  width: 175px;
+  height: 175px; 
+} */
+
+.time {
+  font-size: 50px;
+  /* text-shadow: 0 1px var(--clr-accent-300); */
+  position: absolute;
+}
+
+.container.btns {
+  padding-left: 35%;
+  padding-right: 35%;
+  justify-content: center;
+}
+
+.btn {
+  min-width: var(--btn-size-width-timer);
+  height: var(--btn-size-height-timer);
+
+  /* background-color: var(--clr-primary-300); */
+  margin-left: 5%;
+  margin-right: 5%;
+
+  border-radius: 10%;
+
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: translate(3px, 3px);
+}
+
+/* tasks css */
+.bg-tasks-list {
+  width: 100%;
+  height: auto;
+  /* background-color: var(--clr-primary-300); */
+}
+
+.tasks-list {
+  padding-top: 0.75rem;
+  min-height: 20rem;
+
+  display: block;
+}
+
+.tasks-list * {
+  font: var(--font-main) ;
+}
+
+.tasks-list-title {
+  font-size: 30px;
+}
+
+.task-txt {
+  height: 2rem;
+
+  /* background-color: var(--txtbx-clr-bg); */
+  opacity: 50%;
+
+  /* border: 1px solid var(--clr-accent-100); */
+  border-radius: 5px;
+  width: 100%;
+  /* color: var(--clr-accent-300); */
+}
+
+.add-task-btn,
+.del-task-btn {
+  min-width: 30px;
+  height: min(30px);
+
+  margin: 0 0.5rem;
+
+  border-radius: 50%;
+
+  /* background-color: var(--clr-accent-300);
+  color: var(--clr-primary-300); */
+
+  font-size: 30px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.add-task-btn:hover,
+.del-task-btn:hover {
+  /* box-shadow: 0 0 5px var(--clr-primary-100); */
+}
+
+.tasks-grid {
+  display: grid;
+  margin-inline: max(1.5%, 0.25rem);
+  /* margin: auto, max(2.5%, 0.25rem); */
+  /* margin-right: max(2.5%, 0.25rem); */
+  padding: auto, max(1.5%, 0.25rem);
+
+}
+
+.task-data {
+  align-items: center;
+  
+}
+
+.task-check {
+  display: flex;
+  vertical-align: middle;
+}
+
+.task-check img {
+  width: 20px;
+  height: 20px;
+}
+
+/* task and pomodoro counter arrows */
+.counter-arrow-up,
+.counter-arrow-down {
+  margin-left: 3px;
+
+  border-left: 5px solid  transparent;
+  border-right: 5px solid transparent;
+}
+.counter-arrow-up {
+  margin-bottom: 5px;
+
+  /* border-bottom: 7px solid var(--clr-accent-300); */
+}
+.counter-arrow-down {
+  margin-top: 5px;
+
+  /* border-top: 7px solid var(--clr-accent-300); */
+}
+
+.task-counter {
+  padding: 0 4px;
+}
+
+/* .task-counter .number,
+.pomodoro-counter .number {
+  color: var(--clr-accent-300);
+} */

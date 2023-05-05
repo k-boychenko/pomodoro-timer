@@ -1,0 +1,54 @@
+.settings-form {
+    margin: 0;
+    padding: 0;
+}
+.settings-header {
+    padding: 0rem 0.25rem;
+
+    align-items: center;
+
+    border-bottom: 2px solid black;
+}
+.settings-header h3 {
+    color: #786f6f;
+    margin: 0;
+}
+
+.settings-tab:hover,
+.settings-tab.active {
+    color: black;
+
+    cursor: pointer;
+}
+
+.settings-input {
+    padding: 0.5rem 0.25rem;
+}
+
+.settings-footer {
+    padding: 0.25rem;
+
+    border-top: 2px solid black;
+}
+
+.padding-top-bottom {
+    padding: 0.5rem 0;
+}
+
+.modal-btn {
+    height: 10%;
+    width: 15%;
+
+    font-size: 16px;    
+
+    background-color: #E2DDDD;
+    border-radius: 10%;
+    border: 2px solid black;
+}
+.close-btn:hover {
+    cursor: pointer;
+    color: #786f6f;
+}
+.modal-btn:hover {
+    background-color: #D9D9D9;
+}
