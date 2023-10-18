@@ -275,3 +275,63 @@ nav img,
 .pomodoro-counter .number {
   color: var(--clr-accent-300);
 } */
+
+
+/* login */
+.login-form {
+  margin: 0;
+  padding: 0;
+}
+.login-form form {
+  display: inline;
+  text-align: center;
+}
+.login-btns-size,
+.login-inputs-size {
+  height: 2rem;
+  width: 12rem;
+}
+.login-border-none {
+  border: none;
+}
+.login-input-border-radius {
+  border-radius: 10px;
+}
+.login-btn-border-radius {
+  border-radius: 20px;
+}
+
+
+.login-email {
+  border: rgb(170, 168, 168) 1.5px solid;
+}
+.login-password {
+  border: rgb(170, 168, 168) 1.5px solid;
+}
+.login-input-title {
+  font-size: medium;
+}
+.login-input-sub {
+  font-size: small;
+}
+.login-btn {
+  background-color: rgb(242, 24, 24);
+  color: white;
+}
+.login-link-btn {
+
+}
+
+.sns-btns {
+  display: inline;
+  text-align: center;
+}
+
+.google-btn {
+  border: rgb(161, 157, 157) 1px solid;
+  background-color: rgb(255, 255, 255);
+}
+.facebook-btn {
+  background-color: rgb(24, 119, 242);
+  color: white;
+}

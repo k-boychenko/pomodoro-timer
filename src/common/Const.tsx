@@ -33,3 +33,8 @@ export const enum PlayStatus {
     stopped = "STOPPED",
     paused = "PAUSED"
 };
+
+export const enum LogInFormTypes {
+    logIn = "logIn",
+    signUp = "signUp"
+}

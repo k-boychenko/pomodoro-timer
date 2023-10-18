@@ -14,8 +14,11 @@
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.6",
     "@types/react-sound": "^1.2.3",
+    "firebase": "^10.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-google-button": "^0.7.2",
     "react-icons": "^4.8.0",
     "react-scripts": "5.0.1",
     "react-sound": "^1.2.0",
@@ -45,6 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {}
+  }
 }
