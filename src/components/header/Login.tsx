@@ -69,6 +69,14 @@ const Login = () => {
     };
     const login = async (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
         event.preventDefault();
+
+        try {
+            setError("");
+
+            await signInWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value);
+        } catch (error) {
+            setError("Failed to log in");
+        }
         
     };
 
