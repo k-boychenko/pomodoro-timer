@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 // import GoogleButton from "react-google-button";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from 'react-router-dom';
 import {
     GoogleAuthProvider,
     FacebookAuthProvider,
@@ -13,8 +14,13 @@ import {
 import { auth } from "../../firebase/firebase.utils";
 // import { signInWithGoogle } from '../../firebase/firebase.utils';
 import { LogInFormTypes } from '../../common/Const';
+import UsersService from '../../services/UsersService';
+import { IUser } from '../../common/interfaces/users.interface';
 
 const Login = () => {
+    // useNavigate
+    const navigate = useNavigate();
+
     // useRef
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -31,7 +37,17 @@ const Login = () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
             console.log(result.user);
-            // route.push("/");
+            const user = await UsersService.getUserById(result.user.uid);
+            if (!user) {
+                UsersService.createUser({
+                    uid: result.user.uid,
+                    display_name: result.user.displayName,
+                    email: result.user.email,
+                    last_login: result.user.metadata.lastSignInTime
+                } as IUser);
+            }
+
+            navigate("/");
         } catch (error) {
             console.log(error);
         }
@@ -41,11 +57,28 @@ const Login = () => {
     const fbProbider = new FacebookAuthProvider();
     const FacebookLogin = async () => {
         try {
-            const result = await signInWithPopup(auth, fbProbider);
-            console.log(result.user);
+            // const result = await signInWithPopup(auth, fbProbider);
+            await signInWithPopup(auth, fbProbider)
+            .then(result => {
+                console.log(result.user.uid);
+                UsersService.getUserById(result.user.uid)
+                .then(user => {
+                    console.log(user);
+                    if (!user) {
+                        UsersService.createUser({
+                            uid: result.user.uid,
+                            display_name: result.user.displayName,
+                            email: result.user.email,
+                            last_login: result.user.metadata.lastSignInTime
+                        } as IUser)
+                        .then(res => { console.log("created a fb user", res); })
+                        .catch(err => { console.log("oops, error. ", err); });
+                    }
+                });
+            });
             // const credantial = FacebookAuthProvider.credentialFromResult(result);
             // const token = credantial?.accessToken; 
-            // route.push("/");
+            navigate("/");
         } catch (error) {
             console.log(error);
         }
@@ -60,7 +93,21 @@ const Login = () => {
             setError("");
 
             createUserWithEmailAndPassword(auth, emailRef.current!.value, passwordRef.current!.value)
-            .then();
+            .then((res) => {
+                UsersService.createUser({
+                    uid: res.user.uid,
+                    display_name: "Pomodoro User",
+                    email: res.user.email,
+                    last_login: res.user.metadata.lastSignInTime
+                } as IUser);
+            })
+            .then((res) => {
+                console.log("success ", res);
+                navigate("/");
+            })
+            .catch((err) => {
+                console.log("error ", err);
+            });
             
         } catch (error) {
             setError("Failed to log in");

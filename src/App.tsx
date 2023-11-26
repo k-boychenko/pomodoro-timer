@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 // import components
 import Header from './components/header/Header';
@@ -16,19 +17,26 @@ import './style/colorSchemes.css'
 
 function App() {
   return (
-    <TaskProvider>
-    <TimerProvider>
-    <AlarmProvider>
-    <TimerModesProvider>
-      <div className="App">
-        <Header />
-        <PomodoroTimer />
-        <TasksList />
-      </div>
-    </TimerModesProvider>
-    </AlarmProvider>
-    </TimerProvider>
-    </TaskProvider>
+    <Router>
+      <TaskProvider>
+      <TimerProvider>
+      <AlarmProvider>
+      <TimerModesProvider>
+        <Routes>
+          <Route path="/" element={
+                        <div className="App">
+                        <Header />
+                        <PomodoroTimer />
+                        <TasksList />
+                      </div>
+          
+          } />
+        </Routes>
+      </TimerModesProvider>
+      </AlarmProvider>
+      </TimerProvider>
+      </TaskProvider>
+    </Router>
   );
 }
 
