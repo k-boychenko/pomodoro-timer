@@ -1,64 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 // import components
 import Login from "./Login";
-import Modal from '../common/Modal';
-import { auth } from '../../firebase/firebase.utils';
+import Modal from "../common/Modal";
+import { auth } from "../../firebase/firebase.utils";
 
 interface Props {
-    isOpen: boolean;
-    toggle: () => void;
+  isOpen: boolean;
+  toggle: () => void;
+  signIn?: boolean;
+  changeUserName?: boolean;
+  deleteAccount?: boolean;
 }
 
-
 const Account = (props: Props) => {
+  // useAuthState
+  const [user, loading] = useAuthState(auth);
 
-    // useState
-    // const [user, setUser] = useState(localStorage.getItem('user'));
-    const [user, loading] = useAuthState(auth); 
-    
-    // useEffect
-    // TODO: probably unnecessary
-    // useEffect(() => {
-    //     if (user) {
-    //         // route.push("/");
-    //     } else {
-    //     }
-    // }, [user]);
+  let accwindow = <></>;
 
-    // functions
-    // TODO: keep? useAuthState seems to be enough
-    // const setUserData = (user: string) => {
-    //     localStorage.setItem('user', user);
-    //     setUser(user);
-    // }
-    // const removeUserData = () => {
-    //     localStorage.removeItem('user');
-    //     setUser('');
-    // }
-
-    let accwindow = <></>;
-
-    // TODO: edit with all the user details and needed account settings
-    if (user) {
-        accwindow = (
-            <div>
-                <h2>Hi, {user.displayName} You're logged in</h2>
-                <p>There will be some account info here</p>
-                <button onClick={() => auth.signOut()}>Log out</button>
-            </div>
-        );
-    } else {
-        accwindow = (
-            <Login></Login>
-        );
-    }
-
+  if (loading) {
     return (
-        <Modal children={accwindow} width={"18rem"} isOpen={props.isOpen} toggle={props.toggle}></Modal>
+      <Modal
+        children={<div>Loading...</div>}
+        width={"12rem"}
+        isOpen={props.isOpen}
+        toggle={props.toggle}
+      ></Modal>
     );
+  }
 
+  if (props.signIn) {
+    accwindow = <Login></Login>;
+  } else if (props.changeUserName) {
+    accwindow = (
+      <div>
+        <h4>Change user name</h4>
+        <p>Input a new name below</p>
+        <input type="text" />
+        <button>Save</button>
+      </div>
+    );
+  } else if (props.deleteAccount) {
+    accwindow = (
+      <div>
+        <h2>Delete user</h2>
+        <p>Your account will be deleted permanently.</p>
+        <p>Are you sure you want to delete your account?</p>
+        <button>Delete</button>
+      </div>
+    );
+  }
+
+  return (
+    <Modal
+      children={accwindow}
+      width={"18rem"}
+      isOpen={props.isOpen}
+      toggle={props.toggle}
+    ></Modal>
+  );
 };
 
 export default Account;

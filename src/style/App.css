@@ -38,13 +38,12 @@ body {
 }
 
 header {
-  /* background-color: var(--clr-primary-100); */
   font-size: 23px;
 }
 
 .container {
   margin-inline: auto;
-  padding: 1rem 2rem;
+  padding: 1rem 5%;
 }
 
 .center {
@@ -58,8 +57,17 @@ header {
   justify-content: space-between;
 }
 
+header {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
 .logolink {
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 
   max-width: 50%;
   text-decoration: none;
@@ -95,6 +103,42 @@ nav img,
   cursor: pointer;
 }
 
+.header-menu {
+  display: flex;
+  img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.dropdown-login:hover .dropdown-menu {
+  display: block;
+}
+.dropdown-menu {
+  display: none;
+
+  position: absolute;
+  right: var(--icon-size);
+  top: 50px; 
+
+  font-size: 15px;
+
+  border-radius: 10px;
+}
+
+.dropdown-menu ul {
+  padding: 0.5rem;
+  margin: 0;
+  
+  list-style-type: none;
+}
+
+.dropdown-item:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 /* timer css */
 .timer-title {
   font-size: 25px;
@@ -110,10 +154,7 @@ nav img,
 
 .pomodoro-svg {
   max-width: 100%;
-  /* vertical-align: middle; */
   overflow: visible;
-  /* display: block;
-  margin: auto; */
   transform: rotate(-90deg);
 }
 .svg-indicator {
@@ -124,23 +165,9 @@ nav img,
 .time-down {
   position: relative;
 }
-/* .pomodoro-timer.outer {
-  border: var(--clr-accent-100) solid 5px;
-
-  width: 200px;
-  height: 200px; 
-}
-
-.pomodoro-timer.inner {
-  background-color: var(--clr-primary-300);
-  
-  width: 175px;
-  height: 175px; 
-} */
 
 .time {
   font-size: 50px;
-  /* text-shadow: 0 1px var(--clr-accent-300); */
   position: absolute;
 }
 
@@ -154,7 +181,6 @@ nav img,
   min-width: var(--btn-size-width-timer);
   height: var(--btn-size-height-timer);
 
-  /* background-color: var(--clr-primary-300); */
   margin-left: 5%;
   margin-right: 5%;
 
@@ -170,15 +196,24 @@ nav img,
 /* tasks css */
 .bg-tasks-list {
   width: 100%;
-  height: auto;
-  /* background-color: var(--clr-primary-300); */
+  min-height: 50vh;
 }
 
 .tasks-list {
-  padding-top: 0.75rem;
-  min-height: 20rem;
+  .add-task {
+    flex-direction: column;
+  }
 
-  display: block;
+  .form {
+    display: flex;
+    align-items: center;
+    
+    width: 100%;
+
+    .task-txt {
+      flex: 50%;
+    }
+  }
 }
 
 .tasks-list * {
@@ -192,13 +227,9 @@ nav img,
 .task-txt {
   height: 2rem;
 
-  /* background-color: var(--txtbx-clr-bg); */
   opacity: 50%;
 
-  /* border: 1px solid var(--clr-accent-100); */
   border-radius: 5px;
-  width: 100%;
-  /* color: var(--clr-accent-300); */
 }
 
 .add-task-btn,
@@ -206,12 +237,9 @@ nav img,
   min-width: 30px;
   height: min(30px);
 
-  margin: 0 0.5rem;
+  margin: 0 0 0 0.5rem;
 
   border-radius: 50%;
-
-  /* background-color: var(--clr-accent-300);
-  color: var(--clr-primary-300); */
 
   font-size: 30px;
   font-weight: 900;
@@ -221,61 +249,78 @@ nav img,
 
 .add-task-btn:hover,
 .del-task-btn:hover {
-  /* box-shadow: 0 0 5px var(--clr-primary-100); */
 }
 
 .tasks-grid {
   display: grid;
-  margin-inline: max(1.5%, 0.25rem);
-  /* margin: auto, max(2.5%, 0.25rem); */
-  /* margin-right: max(2.5%, 0.25rem); */
-  padding: auto, max(1.5%, 0.25rem);
-
+  margin: 0 5%;
+  padding: 1rem 3%;
 }
 
 .task-data {
+  display: flex;
   align-items: center;
+
+  margin: 0.5rem 0;
+
+  .crnt-task {
+    flex: 10%;
+  }
+  .task-check,
+  .task-counter,
+  .pomodoro-counter,
+  .del-task-btn {
+    flex: 3%;
+  }
+  .task-txt {
+    flex: 75%;
+  }
   
-}
+  div, input {
+    display: flex;
+    justify-content: center;
+  }
+
+  .task-check,
+  .task-counter,
+  .pomodoro-counter,
+  .del-task-btn,
+  .task-txt,
+  .counter-arrows {
+    margin: 0 0.25rem;
+  }
 
 .task-check {
   display: flex;
   vertical-align: middle;
+
+  img {
+    width: 20px;
+    height: 20px;
+    }
+  }
+
+  /* task and pomodoro counter arrows */
+  .counter-arrows {
+    flex-direction: column;
+
+  }
+  .counter-arrow-up,
+  .counter-arrow-down {
+    border-left: 5px solid  transparent;
+    border-right: 5px solid transparent;
+  }
+  .counter-arrow-up {
+    margin-bottom: 5px;
+  }
+  .counter-arrow-down {
+    margin-top: 5px;
+  }
+
+  .task-counter {
+    /* padding: 0 4px; */
+  }
 }
-
-.task-check img {
-  width: 20px;
-  height: 20px;
-}
-
-/* task and pomodoro counter arrows */
-.counter-arrow-up,
-.counter-arrow-down {
-  margin-left: 3px;
-
-  border-left: 5px solid  transparent;
-  border-right: 5px solid transparent;
-}
-.counter-arrow-up {
-  margin-bottom: 5px;
-
-  /* border-bottom: 7px solid var(--clr-accent-300); */
-}
-.counter-arrow-down {
-  margin-top: 5px;
-
-  /* border-top: 7px solid var(--clr-accent-300); */
-}
-
-.task-counter {
-  padding: 0 4px;
-}
-
-/* .task-counter .number,
-.pomodoro-counter .number {
-  color: var(--clr-accent-300);
-} */
-
 
 /* login */
 .login-form {
@@ -312,14 +357,17 @@ nav img,
   font-size: medium;
 }
 .login-input-sub {
+  cursor: pointer;
   font-size: small;
 }
 .login-btn {
+  cursor: pointer;
+
   background-color: rgb(242, 24, 24);
   color: white;
 }
 .login-link-btn {
-
+  cursor: pointer;
 }
 
 .sns-btns {
@@ -328,10 +376,28 @@ nav img,
 }
 
 .google-btn {
+  cursor: pointer;
   border: rgb(161, 157, 157) 1px solid;
   background-color: rgb(255, 255, 255);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 .facebook-btn {
+  cursor: pointer;
   background-color: rgb(24, 119, 242);
   color: white;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 820px) {
+  .form {
+    .task-txt {
+      width: auto;
+    }
+  }
 }

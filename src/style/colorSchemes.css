@@ -2,6 +2,9 @@
 .pomodoro-mode {
     background-color: var(--clr-primary-100);
   }
+  .pomodoro-mode .dropdown-menu {
+    background-color: var(--clr-accent-100);
+  }
   .pomodoro-mode .pomodoro-timer.inner,
   .pomodoro-mode.bg-tasks-list {
     background-color: var(--clr-primary-300);
@@ -52,6 +55,9 @@
   .short-break-mode {
     background-color: var(--clr-short-break-100);
   }
+  .short-break-mode .dropdown-menu {
+    background-color: var(--clr-short-break-accent-100);
+  }
   .short-break-mode .pomodoro-timer.inner,
   .short-break-mode.bg-tasks-list  {
     background-color: var(--clr-short-break-300);
@@ -101,6 +107,9 @@
   /* long break colors */
   .long-break-mode {
     background-color: var(--clr-long-break-100);
+  }
+  .long-break-mode .dropdown-menu {
+    background-color: var(--clr-long-break-accent-100);
   }
   .long-break-mode .pomodoro-timer.inner,
   .long-break-mode.bg-tasks-list {

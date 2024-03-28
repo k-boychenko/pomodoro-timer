@@ -171,7 +171,7 @@ const PomodoroTimer = () => {
     };
 
     return (
-        <div>
+        <section className='timer-container'>
             <div className={`container center ${pomodoroMode}`}>
                 <div className='timer'>
                     <div className='timer-title center'>
@@ -201,7 +201,7 @@ const PomodoroTimer = () => {
                 volume={volume}
                 onFinishedPlaying={() => setAlarmPlayStatus(PlayStatus.stopped)}
             />
-        </div>
+        </section>
     );
 };
 

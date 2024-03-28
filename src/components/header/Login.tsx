@@ -1,26 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
-// import GoogleButton from "react-google-button";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookIcon from "@mui/icons-material/Facebook";
+
 import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 
 // import components
 import { auth } from "../../firebase/firebase.utils";
-// import { signInWithGoogle } from '../../firebase/firebase.utils';
 import { LogInFormTypes } from "../../common/Const";
 import UsersService from "../../services/UsersService";
 import { IUser } from "../../common/interfaces/users.interface";
 
 const Login = () => {
-  // useNavigate
-  const navigate = useNavigate();
-
   // useRef
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -36,25 +33,27 @@ const Login = () => {
   const GoogleLogin = async () => {
     try {
       signInWithPopup(auth, googleProvider).then((result) => {
-        UsersService.getUserById(result.user.uid).then((user) => {
-          if (!user.data) {
-            UsersService.createUser({
-              uid: result.user.uid,
-              display_name: result.user.displayName,
-              email: result.user.email,
-              last_login: result.user.metadata.lastSignInTime,
-            } as IUser)
-              .then((res) => {
-                console.log("created a google user", res);
-              })
-              .catch((err) => {
-                console.log("oops, error. ", err);
-              });
-          }
-        });
+        UsersService.getUserById(result.user.uid)
+          .then((user) => {
+            if (!user.data) {
+              UsersService.createUser({
+                uid: result.user.uid,
+                display_name: result.user.displayName,
+                email: result.user.email,
+                last_login: result.user.metadata.lastSignInTime,
+              } as IUser)
+                .then((res) => {
+                  console.log("created a google user", res);
+                })
+                .catch((err) => {
+                  console.log("oops, error. ", err);
+                });
+            }
+          })
+          .then(() => {
+            window.location.reload();
+          });
       });
-
-      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -65,33 +64,35 @@ const Login = () => {
   const FacebookLogin = async () => {
     try {
       await signInWithPopup(auth, fbProbider).then((result) => {
-        UsersService.getUserById(result.user.uid).then((user) => {
-          if (!user.data) {
-            UsersService.createUser({
-              uid: result.user.uid,
-              display_name: result.user.displayName,
-              email: result.user.email,
-              last_login: result.user.metadata.lastSignInTime,
-            } as IUser)
-              .then((res) => {
-                console.log("created a fb user", res);
-              })
-              .catch((err) => {
-                console.log("oops, error. ", err);
-              });
-          }
-        });
+        UsersService.getUserById(result.user.uid)
+          .then((user) => {
+            if (!user.data) {
+              UsersService.createUser({
+                uid: result.user.uid,
+                display_name: result.user.displayName,
+                email: result.user.email,
+                last_login: result.user.metadata.lastSignInTime,
+              } as IUser)
+                .then((res) => {
+                  console.log("created a fb user", res);
+                })
+                .catch((err) => {
+                  console.log("oops, error. ", err);
+                });
+            }
+          })
+          .then(() => {
+            window.location.reload();
+          });
       });
       // const credantial = FacebookAuthProvider.credentialFromResult(result);
       // const token = credantial?.accessToken;
-      navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
 
   // E-mail & password
-  // TODO
   const signup = async (
     event: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
@@ -106,6 +107,12 @@ const Login = () => {
         passwordRef.current!.value
       )
         .then((res) => {
+          const user = auth.currentUser;
+          if (user) {
+            updateProfile(user, {
+              displayName: "Pomodoro User",
+            });
+          }
           UsersService.createUser({
             uid: res.user.uid,
             display_name: "Pomodoro User",
@@ -115,7 +122,9 @@ const Login = () => {
         })
         .then((res) => {
           console.log("success ", res);
-          navigate("/");
+        })
+        .then(() => {
+          window.location.reload();
         })
         .catch((err) => {
           console.log("error ", err);
@@ -260,7 +269,7 @@ const Login = () => {
             className="google-btn login-btns-size login-btn-border-radius"
             onClick={GoogleLogin}
           >
-            Sign in with Google
+            <GoogleIcon /> Sign in with Google
           </button>
         </div>
         <div>
@@ -268,7 +277,7 @@ const Login = () => {
             className="facebook-btn login-btns-size login-border-none login-btn-border-radius"
             onClick={FacebookLogin}
           >
-            Sign in with Facebook
+            <FacebookIcon /> Sign in with Facebook
           </button>
         </div>
       </div>
