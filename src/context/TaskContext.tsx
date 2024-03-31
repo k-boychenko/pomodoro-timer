@@ -41,10 +41,7 @@ export const TaskContext = createContext<TaskContextType>({
 
 export const TaskProvider: FC<Props> = ({ children }) => {
   // useState stuff
-  const [tasks, setTasks] = useState<ITask[]>([
-    { id: 1, task: "aaaaaa", isDone: false, completedPomosNo: 0, pomosNo: 1 },
-    { id: 2, task: "bbbbb", isDone: true, completedPomosNo: 2, pomosNo: 2 },
-  ]);
+  const [tasks, setTasks] = useState<ITask[]>([]);
   const [lastId, setLastId] = useState<number>(2);
   const [currentTask, setCurrentTask] = useState(0);
 
@@ -70,9 +67,6 @@ export const TaskProvider: FC<Props> = ({ children }) => {
         setTasks([...tasks]);
       }
     });
-    // let updTask: ITask = tasks.find(ttask => ttask.id = task.id);
-    // updTask.task = task.task;
-    // updTask.isDone = task.isDone;
   };
 
   const removeTask = (id: number) => {

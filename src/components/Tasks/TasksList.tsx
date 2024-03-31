@@ -26,7 +26,7 @@ const TasksList = () => {
       <div className="tasks-grid">
         <div className="top-titles">
           <span className="current">Current task</span>
-          <span className="done-planned">Done / Planned</span>
+          <span className="done-planned">Done / To do</span>
         </div>
         {tasks.map((task: ITask) => {
           return (
