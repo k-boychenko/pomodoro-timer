@@ -41,7 +41,7 @@ const Task: FC<ITask> = (task) => {
     updateTask(task.id, taskText, task.isDone);
   };
 
-  const handleTaskRemoved = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleTaskRemoved = () => {
     if (window.confirm("Do you want to delete this task?")) removeTask(task.id);
   };
 
@@ -113,7 +113,7 @@ const Task: FC<ITask> = (task) => {
       <DeleteIcon
         className="del-task-btn"
         sx={{ display: isEdit ? "block" : "none" }}
-        onClick={() => handleTaskRemoved}
+        onClick={() => handleTaskRemoved()}
       />
       <EditIcon
         className="edit-btn"
