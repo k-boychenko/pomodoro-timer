@@ -7,7 +7,7 @@ const USERS_API_BASE_URL = 'http://localhost:8080/api/users';
 // TODO: add user interface, chanhe user type to the IF
 
 class UsersService {
-    getUsers(){
+    getUsers() {
         return axios.get(USERS_API_BASE_URL);
     }
 
@@ -28,4 +28,5 @@ class UsersService {
     }
 }
 
+/* eslint import/no-anonymous-default-export: [2, {"allowNew": true}] */
 export default new UsersService();

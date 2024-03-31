@@ -4,6 +4,9 @@
   }
   .pomodoro-mode .dropdown-menu {
     background-color: var(--clr-accent-100);
+    &::before {
+      box-shadow: 0 5px 0 0 var(--clr-accent-100);
+    }
   }
   .pomodoro-mode .pomodoro-timer.inner,
   .pomodoro-mode.bg-tasks-list {
@@ -30,19 +33,32 @@
     color: var(--clr-accent-300);
   }
   .pomodoro-mode .add-task-btn,
-  .pomodoro-mode .del-task-btn {
+  .pomoforo-mode .save-btn {
     background-color: var(--clr-accent-300);
     color: var(--clr-primary-300);
   }
-  .pomodoro-mode .add-task-btn:hover,
-  .pomodoro-mode .del-task-btn:hover {
+  .pomodoro-mode .edit-btn,
+  .pomodoro-mode .save-btn,
+  .pomodoro-mode .del-task-btn {
+    color: var(--clr-accent-300);
+    &:hover {
+      color: var(--clr-accent-100);
+    }
+  }
+  .pomodoro-mode .add-task-btn:hover {
     box-shadow: 0 0 5px var(--clr-primary-100);
   }
   .pomodoro-mode .counter-arrow-up {
     border-bottom: 7px solid var(--clr-accent-300);
+    &:hover {
+      border-bottom: 7px solid var(--clr-accent-100);
+    }
   }
   .pomodoro-mode .counter-arrow-down {
     border-top: 7px solid var(--clr-accent-300);
+    &:hover {
+      border-top: 7px solid var(--clr-accent-100);
+    }
   }
   .pomodoro-mode .task-counter .number,
   .pomodoro-mode .pomodoro-counter .number {
@@ -57,6 +73,12 @@
   }
   .short-break-mode .dropdown-menu {
     background-color: var(--clr-short-break-accent-100);
+    &::before {
+      box-shadow: 0 5px 0 0 var(--clr-short-break-accent-100) !important;
+    }
+  }
+  .short-break-mode .dropdown-menu::before {
+    box-shadow: 0 5px 0 0 var(--clr-short-break-accent-10);
   }
   .short-break-mode .pomodoro-timer.inner,
   .short-break-mode.bg-tasks-list  {
@@ -82,20 +104,32 @@
   .short-break-mode .current-task-check.Mui-checked {
     color: var(--clr-short-break-accent-300);
   }
-  .short-break-mode .add-task-btn,
-  .short-break-mode .del-task-btn {
+  .short-break-mode .add-task-btn {
     background-color: var(--clr-short-break-accent-300);
     color: var(--clr-short-break-300);
   }
-  .short-break-mode .add-task-btn:hover,
-  .short-break-mode .del-task-btn:hover {
+  .short-break-mode .edit-btn,
+  .short-break-mode .save-btn,
+  .short-break-mode .del-task-btn {
+    color: var(--clr-short-break-accent-300);
+    &:hover {
+      color: var(--clr-short-break-accent-100);
+    }
+  }
+  .short-break-mode .add-task-btn:hover {
     box-shadow: 0 0 5px var(--clr-short-break-100);
   }
   .short-break-mode .counter-arrow-up {
     border-bottom: 7px solid var(--clr-short-break-accent-300);
+    &:hover {
+      border-bottom: 7px solid var(--clr-short-break-accent-100);
+    }
   }
   .short-break-mode .counter-arrow-down {
     border-top: 7px solid var(--clr-short-break-accent-300);
+    &:hover {
+      border-top: 7px solid var(--clr-short-break-accent-100);
+    }
   }
   .short-break-mode .task-counter .number,
   .short-break-mode .pomodoro-counter .number {
@@ -110,6 +144,12 @@
   }
   .long-break-mode .dropdown-menu {
     background-color: var(--clr-long-break-accent-100);
+    &::before {
+      box-shadow: 0 5px 0 0 var(--clr-long-break-accent-100);
+    }
+  }
+  .lomg-break-mode .dropdown-menu::before {
+    box-shadow: 0 5px 0 0 var(--clr-long-break-accent-10);
   }
   .long-break-mode .pomodoro-timer.inner,
   .long-break-mode.bg-tasks-list {
@@ -135,20 +175,32 @@
   .long-break-mode .current-task-check.Mui-checked {
     color: var(--clr-long-break-accent-300);
   }
-  .long-break-mode .add-task-btn,
-  .long-break-mode .del-task-btn {
+  .long-break-mode .add-task-btn {
     background-color: var(--clr-long-break-accent-300);
     color: var(--clr-long-break-300);
   }
-  .long-break-mode .add-task-btn:hover,
-  .long-break-mode .del-task-btn:hover {
+  .long-break-mode .edit-btn,
+  .long-break-mode .save-btn,
+  .long-break-mode .del-task-btn {
+    color: var(--clr-long-break-accent-300);
+    &:hover {
+      color: var(--clr-long-break-accent-100);
+    }
+  }
+  .long-break-mode .add-task-btn:hover {
     box-shadow: 0 0 5px var(--clr-long-break-100);
   }
   .long-break-mode .counter-arrow-up {
     border-bottom: 7px solid var(--clr-long-break-accent-300);
+    &:hover {
+      border-bottom: 7px solid var(--clr-long-break-accent-100);
+    }
   }
   .long-break-mode .counter-arrow-down {
     border-top: 7px solid var(--clr-long-break-accent-300);
+    &:hover {
+      border-top: 7px solid var(--clr-long-break-accent-100);
+    }
   }
   .long-break-mode .task-counter .number,
   .long-break-mode .pomodoro-counter .number {

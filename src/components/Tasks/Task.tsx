@@ -1,5 +1,8 @@
 import React, { useState, useContext, FC } from "react";
 import { Radio } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
 
 // import components
 import { TaskContext } from "../../context/TaskContext";
@@ -18,11 +21,11 @@ const Task: FC<ITask> = (task) => {
     updatePomosNo,
     updateCurrentTask,
   } = useContext(TaskContext) as TaskContextType;
+
   // useState
   const [taskText, setTaskText] = useState(task.task);
   const [isDone, setisDone] = useState(task.isDone);
-  // const [completedPomosNo, setCompletedPomosNo] = useState(task.completedPomosNo);
-  // const [pomosNo, setPomosNo] = useState(task.pomosNo);
+  const [isEdit, setIsEdit] = useState(false);
 
   /**handlers */
   const handleTaskChanged = (event: React.FormEvent<HTMLInputElement>) => {
@@ -43,19 +46,17 @@ const Task: FC<ITask> = (task) => {
   };
 
   const handleAddPomo = () => {
-    if (isDone) return;
+    if (isDone || !isEdit) return;
 
-    // setPomosNo(pomosNo + 1);
-    updatePomosNo(task.id, task.pomosNo + 1);
+    updatePomosNo(task.id, 1);
   };
 
   const handleRemovePomo = () => {
-    if (isDone) return;
+    if (isDone || !isEdit) return;
 
     if (task.pomosNo === 0) return;
 
-    // setPomosNo(task.pomosNo - 1);
-    updatePomosNo(task.id, task.pomosNo - 1);
+    updatePomosNo(task.id, -1);
   };
 
   const handleCurrentTaskOnClick = (
@@ -67,10 +68,6 @@ const Task: FC<ITask> = (task) => {
   return (
     <div className="align-inline task-data">
       <div className="crnt-task">
-        {/* <input type="radio" name='current' disabled={isDone} 
-                    onChange={handleCurrentTaskOnClick} 
-                    checked={currentTask === task.id}
-                    /> */}
         <Radio
           className="current-task-check"
           name="current"
@@ -91,7 +88,7 @@ const Task: FC<ITask> = (task) => {
         type="text"
         name="taskText"
         value={taskText}
-        disabled={isDone}
+        disabled={isDone || !isEdit}
         style={{ textDecoration: isDone ? "line-through" : "none" }}
         onChange={handleTaskChanged}
       />
@@ -100,16 +97,34 @@ const Task: FC<ITask> = (task) => {
         <span className="number">{task.completedPomosNo}</span>
       </div>
       <div className="pomodoro-counter center align-inline">
+        <div className="number">/</div>
+      </div>
+      <div className="pomodoro-counter center align-inline">
         {/* n of scheduled pomos */}
         <span className="number">{task.pomosNo}</span>
-        <div className="counter-arrows">
+        <div
+          className="counter-arrows"
+          style={{ display: isEdit ? "block" : "none" }}
+        >
           <div className="counter-arrow-up" onClick={handleAddPomo}></div>
           <div className="counter-arrow-down" onClick={handleRemovePomo}></div>
         </div>
       </div>
-      <div className="del-task-btn center" onClick={handleTaskRemoved}>
-        -
-      </div>
+      <DeleteIcon
+        className="del-task-btn"
+        sx={{ display: isEdit ? "block" : "none" }}
+        onClick={() => handleTaskRemoved}
+      />
+      <EditIcon
+        className="edit-btn"
+        sx={{ display: isEdit ? "none" : "block" }}
+        onClick={() => setIsEdit(!isEdit)}
+      />
+      <SaveIcon
+        className="save-btn"
+        style={{ display: isEdit ? "block" : "none" }}
+        onClick={() => setIsEdit(!isEdit)}
+      />
     </div>
   );
 };

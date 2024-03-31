@@ -7,8 +7,8 @@
   --clr-short-break-100 : #397097;
   --clr-short-break-300 : #478aba;
 
-  --clr-long-break-100 : #41cc93;
-  --clr-long-break-300 : #6ff5bf;
+  --clr-long-break-100 : #21a36d;
+  --clr-long-break-300 : #55dca6;
 
   --clr-accent-100 : #D13834;
   --clr-accent-300 : #971A1A;
@@ -16,8 +16,8 @@
   --clr-short-break-accent-100 : #24398E;
   --clr-short-break-accent-300 : #1B2671;
 
-  --clr-long-break-accent-100 : #14754d;
-  --clr-long-break-accent-300 : #279c6c;
+  --clr-long-break-accent-100 : #1b6b4a;
+  --clr-long-break-accent-300 : #0d5134;
 
   --font-main: 'Pridi';
   --font-clr-primary : #FFFFFF;
@@ -89,14 +89,21 @@ header {
   float: right;
 }
 
-nav img {
+nav img, nav .menu-icon {
   width: var(--icon-size);
   height: var(--icon-size);
 
   padding: 0 0.5rem;
 }
 
+nav .menu-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 nav img,
+nav .menu-icon,
 .task-check,
 .counter-arrow-up,
 .counter-arrow-down {
@@ -112,7 +119,7 @@ nav img,
   }
 }
 
-.dropdown-login:hover .dropdown-menu {
+.dropdown-menu.visible {
   display: block;
 }
 .dropdown-menu {
@@ -120,11 +127,26 @@ nav img,
 
   position: absolute;
   right: var(--icon-size);
-  top: 50px; 
+  top: 60px; 
+
+  margin-right: 4%;
+  padding: 0.75rem 0;
 
   font-size: 15px;
 
-  border-radius: 10px;
+  border-radius: 10px 0 10px 10px;
+
+  z-index: 99999;
+  &::before {
+    content: "";
+    position: absolute;
+    background-color: none;
+    top: -22px;
+    right: 0;
+    height: 22px;
+    width: 8px;
+    border-bottom-right-radius: 10px;
+  }
 }
 
 .dropdown-menu ul {
@@ -232,10 +254,9 @@ nav img,
   border-radius: 5px;
 }
 
-.add-task-btn,
-.del-task-btn {
-  min-width: 30px;
-  height: min(30px);
+.add-task-btn {
+  width: 30px;
+  height: 30px;
 
   margin: 0 0 0 0.5rem;
 
@@ -247,14 +268,25 @@ nav img,
   cursor: pointer;
 }
 
-.add-task-btn:hover,
-.del-task-btn:hover {
+.del-task-btn,
+.edit-btn,
+.save-btn {
+  cursor: pointer;
 }
 
 .tasks-grid {
   display: grid;
   margin: 0 5%;
   padding: 1rem 3%;
+
+  .top-titles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .done-planned{
+      padding: 0 2%;
+    }
+  }
 }
 
 .task-data {
@@ -268,14 +300,13 @@ nav img,
   }
   .task-check,
   .task-counter,
-  .pomodoro-counter,
-  .del-task-btn {
+  .pomodoro-counter {
     flex: 3%;
   }
   .task-txt {
     flex: 75%;
   }
-  
+
   div, input {
     display: flex;
     justify-content: center;
@@ -398,6 +429,11 @@ nav img,
   .form {
     .task-txt {
       width: auto;
+    }
+  }
+  .tasks-grid {
+    .task-txt {
+      width: 20%;
     }
   }
 }
