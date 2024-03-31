@@ -20,6 +20,11 @@ enum Tabs {
   alarm,
 }
 
+enum AlarmSounds {
+  chime,
+  bell,
+}
+
 const Settings = (props: Props) => {
   // useContext
   const {
@@ -142,7 +147,7 @@ const Settings = (props: Props) => {
   const handleAlarmSoundNameOnChange = (
     event: ChangeEvent<HTMLSelectElement>
   ) => {
-    setAlarmSoundName(event.currentTarget.value);
+    setAlarmSoundName(Number(event.currentTarget.value));
     console.log(event.currentTarget.value);
   };
 
@@ -210,7 +215,7 @@ const Settings = (props: Props) => {
       </div>
       {openTab === Tabs.settings ? (
         <div className="settings-input">
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Pomodoro</div>
             <input
               type="number"
@@ -222,7 +227,7 @@ const Settings = (props: Props) => {
               onChange={handlePomoTimeOnChange}
             />
           </div>
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Short Break</div>
             <input
               type="number"
@@ -234,7 +239,7 @@ const Settings = (props: Props) => {
               onChange={handleShortBreakTimeOnChange}
             />
           </div>
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Long Break</div>
             <input
               type="number"
@@ -246,7 +251,7 @@ const Settings = (props: Props) => {
               onChange={handleLongBreakTimeOnChange}
             />
           </div>
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Auto Start Breaks</div>
             <Switch
               name="autoStartBreaks"
@@ -254,7 +259,7 @@ const Settings = (props: Props) => {
               onChange={handleAutoStartBreaksOnChange}
             />
           </div>
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Auto Start Pomodoros</div>
             <Switch
               name="autoStartPomos"
@@ -262,7 +267,7 @@ const Settings = (props: Props) => {
               onChange={handleAutoStartPomosOnChange}
             />
           </div>
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Long Break Interval</div>
             <input
               type="number"
@@ -277,9 +282,10 @@ const Settings = (props: Props) => {
         </div>
       ) : (
         <div className="settings-input">
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Volume</div>
             <Slider
+              className="volume-slider"
               value={volumeLvl}
               aria-label="Default"
               valueLabelDisplay="auto"
@@ -288,7 +294,7 @@ const Settings = (props: Props) => {
               onChange={handleVolumeLvlOnChange}
             />
           </div>
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Play alarm sound</div>
             <Switch
               name="playAlarmSound"
@@ -296,7 +302,7 @@ const Settings = (props: Props) => {
               onChange={handlePlayAlarmSoundOnChange}
             />
           </div>
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Alarm Sound</div>
             <NativeSelect
               defaultValue={alarmSound}
@@ -307,11 +313,11 @@ const Settings = (props: Props) => {
               onChange={handleAlarmSoundNameOnChange}
               disabled={!playAlarmSound}
             >
-              <option value="chime">Chime</option>
-              <option value="bell">Bell</option>
+              <option value={AlarmSounds.chime}>Chime</option>
+              <option value={AlarmSounds.bell}>Bell</option>
             </NativeSelect>
           </div>
-          <div className="align-inline padding-top-bottom">
+          <div className="input-line padding-top-bottom">
             <div>Play ticking sound</div>
             <Switch
               name="playTickingSound"

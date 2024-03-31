@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 // import components
@@ -16,7 +16,7 @@ interface Props {
 
 const Account = (props: Props) => {
   // useAuthState
-  const [user, loading] = useAuthState(auth);
+  const [loading] = useAuthState(auth);
 
   let accwindow = <></>;
 

@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 // import components
+import Info from "./Info";
 import Settings from "./Settings";
 import Account from "./Account";
 import {
@@ -11,8 +15,6 @@ import {
 import { auth } from "../../firebase/firebase.utils";
 
 import logo from "../../img/pomotimer_logo.svg";
-import settings from "../../img/settings_icon.svg";
-import login from "../../img/login_icon.svg";
 
 const Header = () => {
   const [user] = useAuthState(auth);
@@ -23,9 +25,11 @@ const Header = () => {
   ) as TimerModesContextType;
 
   // useState
+  const [infoIsOpen, setInfoIsOpen] = useState(false);
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
   const [accountIsOpen, setAccountIsOpen] = useState(false);
   const [signInFlg, setSignInFlg] = useState(false);
+  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
   const [changeUserNameFlg, setChangeUserNameFlg] = useState(false);
   const [deleteAccountFlg, setDeleteAccountFlg] = useState(false);
 
@@ -93,20 +97,33 @@ const Header = () => {
         </a>
         <nav>
           <div className="header-menu">
-            <div>
-              <img
-                src={settings}
-                alt="Settings"
+            <div className="menu-item">
+              <InfoOutlinedIcon
+                className="menu-icon"
+                onClick={() => setInfoIsOpen(true)}
+              />
+            </div>
+            <div className="menu-item">
+              <SettingsOutlinedIcon
+                className="menu-icon"
                 onClick={() => setSettingsIsOpen(true)}
               />
             </div>
-            <div className="dropdown-login">
-              <img src={login} alt="Login" />
-              <div className="dropdown-menu">{dropdownLogin}</div>
+            <div className="dropdown-login menu-item">
+              <AccountCircleOutlinedIcon
+                className="menu-icon"
+                onClick={() => setDropDownIsOpen(!dropDownIsOpen)}
+              />
+              <div
+                className={`dropdown-menu ${dropDownIsOpen ? "visible" : ""}`}
+              >
+                {dropdownLogin}
+              </div>
             </div>
           </div>
         </nav>
       </div>
+      <Info isOpen={infoIsOpen} toggle={() => setInfoIsOpen(!infoIsOpen)} />
       <Settings
         isOpen={settingsIsOpen}
         toggle={() => setSettingsIsOpen(!settingsIsOpen)}
