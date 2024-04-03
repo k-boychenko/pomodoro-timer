@@ -18,7 +18,8 @@ export type TaskContextType = {
   lastId: number;
   currentTask: number;
   addTask: (newTask: string) => void;
-  updateTask: (id: number, task: string, isDone: boolean) => void;
+  updateTaskIsDone: (id: number, isDone: boolean) => void;
+  updateTaskText: (id: number, task: string) => void;
   removeTask: (taskId: number) => void;
   clearTasks: () => void;
   updateCompletedPomosNo: (id: number) => void;
@@ -31,7 +32,8 @@ export const TaskContext = createContext<TaskContextType>({
   lastId: 0,
   currentTask: 0,
   addTask: () => {},
-  updateTask: () => {},
+  updateTaskIsDone: () => {},
+  updateTaskText: () => {},
   removeTask: () => {},
   clearTasks: () => {},
   updateCompletedPomosNo: () => {},
@@ -40,10 +42,18 @@ export const TaskContext = createContext<TaskContextType>({
 });
 
 export const TaskProvider: FC<Props> = ({ children }) => {
-  // useState stuff
-  const [tasks, setTasks] = useState<ITask[]>([]);
-  const [lastId, setLastId] = useState<number>(2);
-  const [currentTask, setCurrentTask] = useState(0);
+  // localStorage
+  const todosLS = localStorage.getItem("todos");
+  const todosObj = todosLS ? (JSON.parse(todosLS) as ITask[]) : [];
+  const currentTaskLS = localStorage.getItem("currentTask");
+  const currentTaskObj = currentTaskLS ? Number(JSON.parse(currentTaskLS)) : 0;
+
+  // useState
+  const [tasks, setTasks] = useState<ITask[]>(todosObj);
+  const [lastId, setLastId] = useState<number>(
+    todosObj.length > 0 ? todosObj[todosObj.length - 1].id : 0
+  );
+  const [currentTask, setCurrentTask] = useState(currentTaskObj);
 
   // functions
   const addTask = (task: string) => {
@@ -58,12 +68,21 @@ export const TaskProvider: FC<Props> = ({ children }) => {
     setLastId(newTask.id);
   };
 
-  const updateTask = (id: number, task: string, isDone: boolean) => {
+  const updateTaskIsDone = (id: number, isDone: boolean) => {
+    // filter task by id
+    tasks.filter((ttask: ITask) => {
+      if (ttask.id === id) {
+        ttask.isDone = isDone;
+        setTasks([...tasks]);
+      }
+    });
+  };
+
+  const updateTaskText = (id: number, task: string) => {
     // filter task by id
     tasks.filter((ttask: ITask) => {
       if (ttask.id === id) {
         ttask.task = task;
-        ttask.isDone = isDone;
         setTasks([...tasks]);
       }
     });
@@ -90,10 +109,7 @@ export const TaskProvider: FC<Props> = ({ children }) => {
   const updatePomosNo = (id: number, no: number) => {
     tasks.filter((ttask: ITask) => {
       if (ttask.id === id) {
-        // let curPomosNo = ;
-        if (ttask.pomosNo + no >= 0) {
-          ttask.pomosNo += no;
-        }
+        ttask.pomosNo = no;
         setTasks([...tasks]);
       }
     });
@@ -101,6 +117,7 @@ export const TaskProvider: FC<Props> = ({ children }) => {
 
   const updateCurrentTask = (taskId: number) => {
     setCurrentTask(taskId);
+    localStorage.setItem("currentTask", String(taskId));
   };
 
   return (
@@ -110,7 +127,8 @@ export const TaskProvider: FC<Props> = ({ children }) => {
         lastId,
         currentTask,
         addTask,
-        updateTask,
+        updateTaskIsDone,
+        updateTaskText,
         removeTask,
         clearTasks,
         updateCompletedPomosNo,

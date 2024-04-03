@@ -16,7 +16,8 @@ const Task: FC<ITask> = (task) => {
   // useContext
   const {
     currentTask,
-    updateTask,
+    updateTaskIsDone,
+    updateTaskText,
     removeTask,
     updatePomosNo,
     updateCurrentTask,
@@ -24,21 +25,22 @@ const Task: FC<ITask> = (task) => {
 
   // useState
   const [taskText, setTaskText] = useState(task.task);
+  const [pomosTodo, setPomosTodo] = useState(task.pomosNo);
   const [isDone, setisDone] = useState(task.isDone);
   const [isEdit, setIsEdit] = useState(false);
 
   /**handlers */
   const handleTaskChanged = (event: React.FormEvent<HTMLInputElement>) => {
     setTaskText(event.currentTarget.value);
-    updateTask(task.id, taskText, task.isDone);
+    // updateTaskText(task.id, taskText);
   };
 
-  const handleIsDoneChanged = (event: React.MouseEvent<HTMLImageElement>) => {
+  const handleIsDoneChanged = () => {
     if (!isDone && currentTask === task.id) {
       updateCurrentTask(0);
     }
+    updateTaskIsDone(task.id, !isDone);
     setisDone(!isDone);
-    updateTask(task.id, taskText, task.isDone);
   };
 
   const handleTaskRemoved = () => {
@@ -48,21 +50,30 @@ const Task: FC<ITask> = (task) => {
   const handleAddPomo = () => {
     if (isDone || !isEdit) return;
 
-    updatePomosNo(task.id, 1);
+    setPomosTodo(pomosTodo + 1);
+    // updatePomosNo(task.id, 1);
   };
 
   const handleRemovePomo = () => {
     if (isDone || !isEdit) return;
 
-    if (task.pomosNo === 0) return;
+    if (pomosTodo === 0) return;
 
-    updatePomosNo(task.id, -1);
+    setPomosTodo(pomosTodo - 1);
+    // updatePomosNo(task.id, -1);
   };
 
   const handleCurrentTaskOnClick = (
     event: React.InputHTMLAttributes<HTMLInputElement>
   ) => {
     updateCurrentTask(task.id);
+  };
+
+  const handleSaveOnClick = () => {
+    setIsEdit(!isEdit);
+
+    updateTaskText(task.id, taskText);
+    updatePomosNo(task.id, pomosTodo);
   };
 
   return (
@@ -101,7 +112,7 @@ const Task: FC<ITask> = (task) => {
       </div>
       <div className="pomodoro-counter center align-inline">
         {/* n of scheduled pomos */}
-        <span className="number">{task.pomosNo}</span>
+        <span className="number">{pomosTodo}</span>
         <div
           className="counter-arrows"
           style={{ display: isEdit ? "block" : "none" }}
@@ -123,7 +134,7 @@ const Task: FC<ITask> = (task) => {
       <SaveIcon
         className="save-btn"
         style={{ display: isEdit ? "block" : "none" }}
-        onClick={() => setIsEdit(!isEdit)}
+        onClick={handleSaveOnClick}
       />
     </div>
   );

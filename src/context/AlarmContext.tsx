@@ -43,11 +43,15 @@ export const AlarmContext = createContext<AlarmContextType>({
 });
 
 export const AlarmProvider: FC<Props> = ({ children }) => {
+  // localStorage
+  const settingsLS = localStorage.getItem("settings");
+  const settingsObj = settingsLS ? JSON.parse(settingsLS).alarm : "";
+
   // useState
-  const [playAlarm, setPlayAlarm] = useState(true);
-  const [alarmSound, setAlarmSound] = useState(chime);
-  const [playTicking, setPlayTicking] = useState(false);
-  const [volume, setVolume] = useState(50);
+  const [playAlarm, setPlayAlarm] = useState(settingsObj.playAlarmSound);
+  const [alarmSound, setAlarmSound] = useState(settingsObj.alarmSoundName);
+  const [playTicking, setPlayTicking] = useState(settingsObj.playTickingSound);
+  const [volume, setVolume] = useState(settingsObj.volumeLvl);
 
   // functions
   const updatePlayAlarm = (play: boolean) => {

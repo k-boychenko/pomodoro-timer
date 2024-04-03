@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 // import components
 import AddTask from "./AddTask";
@@ -16,6 +16,10 @@ const TasksList = () => {
   const { pomodoroMode } = useContext(
     TimerModesContext
   ) as TimerModesContextType;
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <section className={`${pomodoroMode} bg-tasks-list tasks-list`}>
