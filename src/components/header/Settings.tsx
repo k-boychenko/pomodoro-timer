@@ -190,6 +190,24 @@ const Settings = (props: Props) => {
       playTicking: playTickingSound,
       volume: volumeLvl,
     });
+    // localStorageUpd
+    const settingsObj = {
+      timer: {
+        pomodoroTime: pomoTime,
+        shortBreakTime: shortBreakTime,
+        longBreakTime: longBreakTime,
+        autoStartBreaksFlg: autoStartBreaksFlg,
+        autoStartPomosFlg: autoStartPomosFlg,
+        noOfPomosUntilLongBreak: longBreakIntervalNum,
+      },
+      alarm: {
+        playAlarmSound: playAlarmSound,
+        alarmSoundName: alarmSoundName,
+        playTickingSound: playTickingSound,
+        volumeLvl: volumeLvl,
+      },
+    };
+    localStorage.setItem("settings", JSON.stringify(settingsObj));
   };
 
   const setts = (

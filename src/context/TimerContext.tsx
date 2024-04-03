@@ -46,13 +46,23 @@ export const TimerContext = createContext<TimerContextType>({
 });
 
 export const TimerProvider: FC<Props> = ({ children }) => {
+  // localStorage
+  const settingsLS = localStorage.getItem("settings");
+  const settingsObj = settingsLS ? JSON.parse(settingsLS).timer : "";
+
   // useState
-  const [pomodoro, setPomodoro] = useState(25);
-  const [shortBreak, setShortBreak] = useState(5);
-  const [longBreak, setLongBreak] = useState(15);
-  const [autoStartBreaks, setAutoStartBreaks] = useState(false);
-  const [autoStartPomos, setAutoStartPomos] = useState(false);
-  const [longBreakInterval, setLongBreakInterval] = useState(2);
+  const [pomodoro, setPomodoro] = useState(settingsObj.pomodoroTime);
+  const [shortBreak, setShortBreak] = useState(settingsObj.shortBreakTime);
+  const [longBreak, setLongBreak] = useState(settingsObj.longBreakTime);
+  const [autoStartBreaks, setAutoStartBreaks] = useState(
+    settingsObj.autoStartBreaksFlg
+  );
+  const [autoStartPomos, setAutoStartPomos] = useState(
+    settingsObj.autoStartPomosFlg
+  );
+  const [longBreakInterval, setLongBreakInterval] = useState(
+    settingsObj.noOfPomosUntilLongBreak
+  );
 
   // functions
   const updatePomodoro = (mins: number) => {

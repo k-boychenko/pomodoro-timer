@@ -17,8 +17,8 @@ const AddTask = () => {
   const handleAdd = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
 
-    addTask(newTask);
     setNewTask("");
+    addTask(newTask);
   };
 
   return (
